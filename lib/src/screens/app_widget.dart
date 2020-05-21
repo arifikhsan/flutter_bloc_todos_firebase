@@ -4,9 +4,9 @@ import 'package:flutter_bloc_todos_firebase/src/application/authentication/authe
 import 'package:flutter_bloc_todos_firebase/src/application/todos/todos_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/data/repository/firebase_todos_repository.dart';
 import 'package:flutter_bloc_todos_firebase/src/data/repository/firebase_user_repository.dart';
-import 'package:flutter_bloc_todos_firebase/src/screens/auth/authenticated_screen.dart';
 import 'package:flutter_bloc_todos_firebase/src/screens/auth/loading_screen.dart';
 import 'package:flutter_bloc_todos_firebase/src/screens/auth/unauthenticated_screen.dart';
+import 'package:flutter_bloc_todos_firebase/src/screens/todo/todo_screen.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -31,7 +31,7 @@ class AppWidget extends StatelessWidget {
             return BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 if (state is Authenticated) {
-                  return AuthenticatedScreen();
+                  return TodoScreen();
                 } else if (state is Unauthenticated) {
                   return UnauthenticatedScreen();
                 } else {
