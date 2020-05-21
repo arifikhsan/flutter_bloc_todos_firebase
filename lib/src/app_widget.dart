@@ -34,6 +34,8 @@ class AppWidget extends StatelessWidget {
                   return HomeScreen();
                 } else if (state is Unauthenticated) {
                   return UnauthenticatedScreen();
+                } else if (state is AuthLoading) {
+                  return LoadingScreen();
                 } else {
                   return LoadingScreen();
                 }

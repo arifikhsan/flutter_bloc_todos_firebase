@@ -19,16 +19,18 @@ class AuthenticationBloc
         _userRepository = userRepository;
 
   @override
-  AuthenticationState get initialState => Uninitialized();
+  AuthenticationState get initialState => AuthLoading();
 
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
     if (event is AppStarted) {
-      yield* _mapAppStartedToState();
+      yield Unauthenticated();
     } else if (event is SignInAnonymously) {
       yield* _mapSignInAnonymouslyToState();
+    } else if (event is SignOut) {
+      yield* _mapSignOutToState();
     }
   }
 
@@ -50,6 +52,7 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _mapSignInAnonymouslyToState() async* {
     try {
+      yield AuthLoading();
       final isSignedIn = await _userRepository.isAuthenticated();
       if (!isSignedIn) {
         await _userRepository.authenticate();
@@ -64,5 +67,11 @@ class AuthenticationBloc
       print('gagal nih ${e.toString()}');
       yield Unauthenticated();
     }
+  }
+
+  Stream<AuthenticationState> _mapSignOutToState() async* {
+    yield AuthLoading();
+    await _userRepository.signOut();
+    yield Unauthenticated();
   }
 }

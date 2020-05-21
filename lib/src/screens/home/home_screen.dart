@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_todos_firebase/src/application/authentication/authentication_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/application/filtered_todos/filtered_todos_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/application/stats/stats_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/application/tab/tab_bloc.dart';
@@ -30,10 +31,17 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<TabBloc, TabState>(
         builder: (context, snapshot) {
           int currentTab = snapshot is TabTodo ? 0 : 1;
-
           return Scaffold(
             appBar: AppBar(
               title: Text('Flutter Todos Firebase'),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context).add(SignOut());
+                  },
+                ),
+              ],
             ),
             body: snapshot is TabTodo ? TodosScreen() : StatsScreen(),
             bottomNavigationBar: BottomNavigationBar(
