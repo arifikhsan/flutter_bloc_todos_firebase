@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc_todos_firebase/src/entity/todo_entity.dart';
+import 'package:flutter_bloc_todos_firebase/src/domain/entity/todo_entity.dart';
 
 @immutable
 class TodoModel {

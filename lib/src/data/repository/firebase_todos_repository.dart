@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc_todos_firebase/src/data/model/todo_model.dart';
+import 'package:flutter_bloc_todos_firebase/src/domain/entity/todo_entity.dart';
 import 'package:flutter_bloc_todos_firebase/src/domain/repository/todos_repository.dart';
-import 'package:flutter_bloc_todos_firebase/src/entity/todo_entity.dart';
-import 'package:flutter_bloc_todos_firebase/src/model/todo_model.dart';
 
 class FirebaseTodosRepository implements TodosRepository {
   final todoCollection = Firestore.instance.collection('todos');

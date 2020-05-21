@@ -3,18 +3,18 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bloc_todos_firebase/src/data/repository/firebase_todos_repository.dart';
-import 'package:flutter_bloc_todos_firebase/src/model/todo_model.dart';
+import 'package:flutter_bloc_todos_firebase/src/data/model/todo_model.dart';
+import 'package:flutter_bloc_todos_firebase/src/domain/repository/todos_repository.dart';
 
 part 'todos_event.dart';
 part 'todos_state.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
-  final FirebaseTodosRepository _todosRepository;
+  final TodosRepository _todosRepository;
   StreamSubscription _todosSubscription;
 
   TodosBloc({
-    @required FirebaseTodosRepository todosRepository,
+    @required TodosRepository todosRepository,
   })  : assert(todosRepository != null),
         _todosRepository = todosRepository;
 
@@ -53,7 +53,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     await _todosRepository.addNewTodo(event.todo);
   }
 
-  Stream<TodosState> _mapUpdateTodoToState(TodosUpdated event) async* {
+  Stream<TodosState> _mapUpdateTodoToState(UpdateTodo event) async* {
     await _todosRepository.updateTodo(event.todo);
   }
 
@@ -84,8 +84,6 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
       });
     }
   }
-
-  Future _saveTodos(List<TodoModel> todos) {}
 
   Stream<TodosState> _mapTodosUpdatedToState(TodosUpdated event) async* {
     yield TodosLoaded(event.todos);
