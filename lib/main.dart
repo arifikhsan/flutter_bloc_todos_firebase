@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_todos_firebase/src/screens/app_widget.dart';
+import 'package:flutter_bloc_todos_firebase/src/app_widget.dart';
 
-void main() => runApp(AppWidget());
+void main() {
+  runApp(AppWidget());
+}

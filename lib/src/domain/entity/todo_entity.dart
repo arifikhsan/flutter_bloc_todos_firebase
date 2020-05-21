@@ -47,8 +47,8 @@ class TodoEntity extends Equatable {
   Map<String, Object> toDocument() {
     return {
       'note': note,
-      'task': note,
-      'complete': note,
+      'task': task,
+      'complete': complete,
     };
   }
 }
