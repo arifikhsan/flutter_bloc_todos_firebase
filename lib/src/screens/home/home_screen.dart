@@ -44,6 +44,13 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             body: snapshot is TabTodo ? TodosScreen() : StatsScreen(),
+            floatingActionButton: FloatingActionButton(
+              tooltip: 'Add Todo',
+              child: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, '/addTodo');
+              },
+            ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: currentTab,
               onTap: (index) {
