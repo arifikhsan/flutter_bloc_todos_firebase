@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1057908128354",
+    "firebase_url": "https://flutter-bloc-note-c5fea.firebaseio.com",
+    "project_id": "flutter-bloc-note-c5fea",
+    "storage_bucket": "flutter-bloc-note-c5fea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057908128354:android:af4ac3dbf0b900bc9faf3b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_bloc_todos_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057908128354-ln8kqd4gsvcin22tm87i6f3707th7p73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgyNJOCwdlT7lJOHoCdbrkN1zDp8plPxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057908128354-ln8kqd4gsvcin22tm87i6f3707th7p73.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

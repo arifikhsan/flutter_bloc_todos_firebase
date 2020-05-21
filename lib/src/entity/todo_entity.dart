@@ -36,7 +36,7 @@ class TodoEntity extends Equatable {
   }
 
   static TodoEntity fromSnapshot(DocumentSnapshot snapshot) {
-    return Todoentity(
+    return TodoEntity(
       snapshot.documentID,
       snapshot.data['note'],
       snapshot.data['task'],
