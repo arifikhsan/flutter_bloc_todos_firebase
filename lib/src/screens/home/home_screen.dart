@@ -6,6 +6,7 @@ import 'package:flutter_bloc_todos_firebase/src/application/stats/stats_bloc.dar
 import 'package:flutter_bloc_todos_firebase/src/application/tab/tab_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/application/todos/todos_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/core/model/app_tab.dart';
+import 'package:flutter_bloc_todos_firebase/src/screens/home/widget/filter_button_widget.dart';
 import 'package:flutter_bloc_todos_firebase/src/screens/stats/stats_screen.dart';
 import 'package:flutter_bloc_todos_firebase/src/screens/todo/todos_screen.dart';
 
@@ -35,6 +36,7 @@ class HomeScreen extends StatelessWidget {
             appBar: AppBar(
               title: Text('Flutter Todos Firebase'),
               actions: <Widget>[
+                FilterButtonWidget(),
                 IconButton(
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () {

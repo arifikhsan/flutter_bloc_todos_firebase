@@ -54,8 +54,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 
   Stream<TodosState> _mapUpdateTodoToState(UpdateTodo event) async* {
-    print('_mapUpdateTodoToState');
-    await _todosRepository.updateTodo(event.todo);
+    _todosRepository.updateTodo(event.todo);
   }
 
   Stream<TodosState> _mapDeleteTodoToState(DeleteTodo event) async* {

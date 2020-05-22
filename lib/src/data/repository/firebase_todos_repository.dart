@@ -33,7 +33,6 @@ class FirebaseTodosRepository implements TodosRepository {
 
   @override
   Future<void> updateTodo(TodoModel todo) {
-    print('updateTodo');
     return todoCollection
         .document(todo.id)
         .updateData(todo.toEntity().toDocument());
