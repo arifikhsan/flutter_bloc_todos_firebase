@@ -60,7 +60,7 @@ class TodosScreen extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           )
                         : null,
-                    onTap: () async {
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) {
                           return DetailScreen(

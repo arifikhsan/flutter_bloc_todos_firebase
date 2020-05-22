@@ -23,15 +23,20 @@ class DetailScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Todo detail'),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    BlocProvider.of<TodosBloc>(context).add(DeleteTodo(todo));
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
+              // actions: <Widget>[
+              //   IconButton(
+              //     icon: Icon(Icons.delete),
+              //     onPressed: () {
+              // BlocProvider.of<TodosBloc>(context).add(DeleteTodo(todo));
+              // Scaffold.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text('Todo deleted'),
+              //     duration: Duration(seconds: 2),
+              //   ),
+              // );
+              // },
+              // ),
+              // ],
             ),
             body: ListView(
               children: <Widget>[
