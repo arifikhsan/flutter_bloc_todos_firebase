@@ -4,6 +4,7 @@ import 'package:flutter_bloc_todos_firebase/src/application/filtered_todos/filte
 import 'package:flutter_bloc_todos_firebase/src/application/todos/todos_bloc.dart';
 import 'package:flutter_bloc_todos_firebase/src/data/model/todo_model.dart';
 import 'package:flutter_bloc_todos_firebase/src/screens/add_edit/add_edit_screen.dart';
+import 'package:flutter_bloc_todos_firebase/src/screens/detail/detail_screen.dart';
 
 class TodosScreen extends StatelessWidget {
   @override
@@ -16,74 +17,92 @@ class TodosScreen extends StatelessWidget {
           );
         } else if (state is FilteredTodosLoadSuccess) {
           final todos = state.filteredTodos;
-          print(todos);
-          return ListView.builder(
-            itemCount: todos.length,
-            itemBuilder: (BuildContext context, int index) {
-              final TodoModel todo = todos[index];
-              return Dismissible(
-                key: Key(todo.id),
-                onDismissed: (direction) {
-                  BlocProvider.of<TodosBloc>(context).add(DeleteTodo(todo));
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Todo deleted'),
-                    duration: Duration(seconds: 5),
-                    action: SnackBarAction(
-                      label: 'Undo',
-                      onPressed: () {
-                        BlocProvider.of<TodosBloc>(context).add(AddTodo(todo));
+          if (todos.isNotEmpty) {
+            return ListView.builder(
+              itemCount: todos.length,
+              itemBuilder: (BuildContext context, int index) {
+                final TodoModel todo = todos[index];
+                return Dismissible(
+                  key: Key(todo.id),
+                  onDismissed: (direction) {
+                    BlocProvider.of<TodosBloc>(context).add(DeleteTodo(todo));
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Todo deleted'),
+                      duration: Duration(seconds: 5),
+                      action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () {
+                          BlocProvider.of<TodosBloc>(context)
+                              .add(AddTodo(todo));
+                        },
+                      ),
+                    ));
+                  },
+                  child: ListTile(
+                    leading: Checkbox(
+                      value: todo.complete,
+                      onChanged: (_) {
+                        BlocProvider.of<TodosBloc>(context).add(
+                          UpdateTodo(
+                            todo.copyWith(complete: !todo.complete),
+                          ),
+                        );
                       },
                     ),
-                  ));
-                },
-                child: ListTile(
-                  leading: Checkbox(
-                    value: todo.complete,
-                    onChanged: (_) {
-                      BlocProvider.of<TodosBloc>(context).add(
-                        UpdateTodo(
-                          todo.copyWith(complete: !todo.complete),
-                        ),
+                    title: Hero(
+                      tag: todo.id,
+                      child: Text(todo.task),
+                    ),
+                    subtitle: todo.note.isNotEmpty
+                        ? Text(
+                            todo.note,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : null,
+                    onTap: () async {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) {
+                          return DetailScreen(
+                            id: todo.id,
+                          );
+                        }),
                       );
                     },
-                  ),
-                  title: Hero(
-                    tag: todo.id,
-                    child: Text(todo.task),
-                  ),
-                  subtitle: todo.note.isNotEmpty
-                      ? Text(
-                          todo.note,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      : null,
-                  trailing: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return AddEditScreen(
-                          isEditing: true,
-                          todo: todo,
-                          onSave: (task, note) {
-                            BlocProvider.of<TodosBloc>(context).add(
-                              UpdateTodo(
-                                todo.copyWith(
-                                  task: task,
-                                  note: note,
-                                ),
-                              ),
-                            );
-                          },
+                    trailing: IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AddEditScreen(
+                                isEditing: true,
+                                todo: todo,
+                                onSave: (task, note) {
+                                  BlocProvider.of<TodosBloc>(context).add(
+                                    UpdateTodo(
+                                      todo.copyWith(
+                                        task: task,
+                                        note: note,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         );
-                      }));
-                    },
+                      },
+                    ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: Text('No todos'),
+            );
+          }
         } else {
           return Center(
             child: CircularProgressIndicator(),

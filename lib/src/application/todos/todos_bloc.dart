@@ -50,7 +50,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 
   Stream<TodosState> _mapTodoAddedToState(AddTodo event) async* {
-    await _todosRepository.addNewTodo(event.todo);
+    _todosRepository.addNewTodo(event.todo);
   }
 
   Stream<TodosState> _mapUpdateTodoToState(UpdateTodo event) async* {
@@ -58,7 +58,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   }
 
   Stream<TodosState> _mapDeleteTodoToState(DeleteTodo event) async* {
-    await _todosRepository.deleteTodo(event.todo);
+    _todosRepository.deleteTodo(event.todo);
   }
 
   Stream<TodosState> _mapToggleAllToState() async* {
@@ -78,7 +78,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     final currentState = state;
     if (currentState is TodosLoaded) {
       final List<TodoModel> completedTodos =
-          currentState.todos.where((todo) => todo.complete);
+          currentState.todos.where((todo) => todo.complete).toList();
       completedTodos.forEach((completedTodo) {
         _todosRepository.deleteTodo(completedTodo);
       });
