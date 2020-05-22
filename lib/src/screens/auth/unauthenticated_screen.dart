@@ -8,16 +8,21 @@ class UnauthenticatedScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Unauthenticated'),
+        centerTitle: true,
       ),
-      body: RaisedButton(
-        color: Colors.blue,
-        child: Text(
-          'Sign in Anonymously',
-          style: TextStyle(color: Colors.white),
+      body: Center(
+        child: RaisedButton(
+          color: Colors.blue,
+          child: Text(
+            'Sign in Anonymously',
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            BlocProvider.of<AuthenticationBloc>(context).add(
+              SignInAnonymously(),
+            );
+          },
         ),
-        onPressed: () {
-          BlocProvider.of<AuthenticationBloc>(context).add(SignInAnonymously());
-        },
       ),
     );
   }
